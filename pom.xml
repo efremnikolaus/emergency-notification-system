@@ -16,6 +16,7 @@
 	<description>This system efficiently sends emergency notifications to many people.</description>
     <modules>
         <module>api-gateway</module>
+        <module>discovery-server</module>
     </modules>
     <properties>
 		<java.version>17</java.version>
