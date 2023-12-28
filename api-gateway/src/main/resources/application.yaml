@@ -1,9 +1,35 @@
+server:
+  port: 8765
 spring:
   application:
     name: api-gateway
-server:
-  port: 8765
+  cloud:
+    gateway:
+      routes:
+        - id: recipient-service
+          uri: lb://RECIPIENT-SERVICE
+          predicates:
+            - Path=/api/recipients/**
 
+        - id: file-service
+          uri: lb://FILE-SERVICE
+          predicates:
+            - Path=/api/files/**
+
+        - id: template-service
+          uri: lb://TEMPLATE-SERVICE
+          predicates:
+            - Path=/api/templates/**
+
+        - id: notification-service
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/api/notifications/**
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/keycloak-security-service-realm
 eureka:
   client:
     serviceUrl:
